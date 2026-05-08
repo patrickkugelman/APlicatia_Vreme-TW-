@@ -1,8 +1,5 @@
 # Proiect TW — JavaScript și DOM
 
-**Echipă:** [Nume Coleg 1] + [Nume Coleg 2]
-**Tema:** 2. JavaScript și DOM
-**Profesor coordonator:** [Profesor]
 
 ## Structura proiectului
 
