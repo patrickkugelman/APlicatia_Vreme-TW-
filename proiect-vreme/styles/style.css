@@ -1,0 +1,1397 @@
+/* ===========================
+   CSS VARIABLES — TEME
+   =========================== */
+:root {
+  --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  --culoare-text: #e0e0e0;
+  --culoare-text-secundar: #9ca3af;
+  --culoare-accent: #e2b96f;
+  --culoare-accent-hover: #d4a555;
+  --culoare-card: rgba(255, 255, 255, 0.05);
+  --culoare-card-border: rgba(255, 255, 255, 0.1);
+  --culoare-input-bg: #1f2937;
+  --culoare-input-border: #374151;
+  --culoare-input-text: #f3f4f6;
+  --culoare-eroare-bg: rgba(239, 68, 68, 0.15);
+  --culoare-eroare-border: rgba(239, 68, 68, 0.4);
+  --culoare-eroare-text: #fca5a5;
+  --culoare-btn-icon-bg: rgba(255, 255, 255, 0.08);
+  --culoare-btn-icon-hover: rgba(255, 255, 255, 0.15);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+[data-tema="luminos"] {
+  --bg-gradient: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%);
+  --culoare-text: #1e293b;
+  --culoare-text-secundar: #475569;
+  --culoare-accent: #1d4ed8;
+  --culoare-accent-hover: #1e40af;
+  --culoare-card: rgba(255, 255, 255, 0.75);
+  --culoare-card-border: rgba(0, 0, 0, 0.1);
+  --culoare-input-bg: rgba(255, 255, 255, 0.9);
+  --culoare-input-border: #cbd5e1;
+  --culoare-input-text: #1e293b;
+  --culoare-eroare-bg: rgba(239, 68, 68, 0.08);
+  --culoare-eroare-border: rgba(239, 68, 68, 0.3);
+  --culoare-eroare-text: #dc2626;
+  --culoare-btn-icon-bg: rgba(0, 0, 0, 0.06);
+  --culoare-btn-icon-hover: rgba(0, 0, 0, 0.12);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* ===========================
+   RESET & BAZA
+   =========================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg-gradient);
+  min-height: 100vh;
+  color: var(--culoare-text);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 1rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+.container {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ===========================
+   ANTET APLICAȚIE
+   =========================== */
+.antet-aplicatie {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.antet-stanga h1 {
+  font-size: 2rem;
+  color: var(--culoare-accent);
+  margin-bottom: 0.3rem;
+}
+
+.subtitlu {
+  color: var(--culoare-text-secundar);
+  font-size: 0.9rem;
+}
+
+.antet-dreapta {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.btn-icon {
+  background: var(--culoare-btn-icon-bg);
+  border: 1px solid var(--culoare-card-border);
+  border-radius: 10px;
+  padding: 0.5rem 0.7rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  color: var(--culoare-text);
+}
+
+.btn-icon:hover {
+  background: var(--culoare-btn-icon-hover);
+}
+
+/* ===========================
+   PANOU SETĂRI
+   =========================== */
+.panou-setari {
+  background: var(--culoare-card);
+  border: 1px solid var(--culoare-card-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-card);
+}
+
+.panou-setari h2 {
+  font-size: 1rem;
+  color: var(--culoare-text-secundar);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.setari-grila {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.setare-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--culoare-text-secundar);
+}
+
+.setare-item select,
+.setare-item input {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--culoare-input-border);
+  border-radius: 8px;
+  background: var(--culoare-input-bg);
+  color: var(--culoare-input-text);
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.btn-notificari {
+  padding: 0.5rem 1rem;
+  background: var(--culoare-accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-notificari:hover:not(:disabled) {
+  background: var(--culoare-accent-hover);
+}
+
+.btn-notificari:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.ascuns {
+  display: none !important;
+}
+
+/* ===========================
+   FORMULAR CĂUTARE
+   =========================== */
+.form-cautare {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.form-cautare input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--culoare-input-border);
+  border-radius: 10px;
+  background: var(--culoare-input-bg);
+  color: var(--culoare-input-text);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-cautare input:focus {
+  border-color: var(--culoare-accent);
+}
+
+.form-cautare button {
+  padding: 0.75rem 1.5rem;
+  background: var(--culoare-accent);
+  color: #1a1a2e;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.form-cautare button:hover {
+  background: var(--culoare-accent-hover);
+}
+
+/* ===========================
+   CARD VREME CURENTĂ
+   =========================== */
+.container-vreme {
+  min-height: 180px;
+}
+
+.mesaj-initial {
+  text-align: center;
+  color: var(--culoare-text-secundar);
+  padding: 3rem 0;
+}
+
+.card-vreme {
+  background: var(--culoare-card);
+  border: 1px solid var(--culoare-card-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-card);
+}
+
+.antet-card h2 {
+  font-size: 1.5rem;
+  color: var(--culoare-text);
+}
+
+.antet-card .data {
+  color: var(--culoare-text-secundar);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  text-transform: capitalize;
+}
+
+.corp-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.corp-card img {
+  width: 80px;
+  height: 80px;
+}
+
+.temperatura {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--culoare-accent);
+}
+
+.descriere {
+  color: var(--culoare-text);
+  font-size: 1rem;
+  text-transform: capitalize;
+}
+
+.detalii-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  border-top: 1px solid var(--culoare-card-border);
+  padding-top: 1rem;
+}
+
+.detalii-card span {
+  color: var(--culoare-text-secundar);
+  font-size: 0.85rem;
+}
+
+/* ===========================
+   BUTOANE ACȚIUNI
+   =========================== */
+.actiuni-oras {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn-actiune {
+  padding: 0.5rem 1.1rem;
+  background: transparent;
+  color: var(--culoare-accent);
+  border: 1.5px solid var(--culoare-accent);
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-actiune:hover {
+  background: var(--culoare-accent);
+  color: #1a1a2e;
+}
+
+/* ===========================
+   GRAFIC CHART.JS
+   =========================== */
+.container-grafic {
+  min-height: 0;
+}
+
+.grafic-container {
+  background: var(--culoare-card);
+  border: 1px solid var(--culoare-card-border);
+  border-radius: 16px;
+  padding: 1.25rem;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-card);
+}
+
+.grafic-titlu {
+  font-size: 0.85rem;
+  color: var(--culoare-text-secundar);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+/* ===========================
+   PROGNOZĂ 5 ZILE
+   =========================== */
+.prognoza-container {
+  background: var(--culoare-card);
+  border: 1px solid var(--culoare-card-border);
+  border-radius: 16px;
+  padding: 1.25rem;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-card);
+}
+
+.prognoza-titlu {
+  font-size: 0.85rem;
+  color: var(--culoare-text-secundar);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.prognoza-grila {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+}
+
+.card-zi {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.6rem 0.25rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  transition: background 0.2s;
+}
+
+.card-zi:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.zi-saptamana {
+  font-size: 0.8rem;
+  color: var(--culoare-text-secundar);
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.card-zi img {
+  width: 44px;
+  height: 44px;
+}
+
+.temp-max {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--culoare-accent);
+}
+
+.temp-min {
+  font-size: 0.8rem;
+  color: var(--culoare-text-secundar);
+}
+
+/* ===========================
+   CARDURI SECȚIUNI (wrapper)
+   =========================== */
+.sectiune-card {
+  background: var(--culoare-card);
+  border: 1px solid var(--culoare-card-border);
+  border-radius: 16px;
+  padding: 1.25rem;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-card);
+}
+
+.titlu-sectiune {
+  font-size: 0.9rem;
+  color: var(--culoare-text-secundar);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.sectiune-antet {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ===========================
+   FAVORITE
+   =========================== */
+.lista-favorite {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.favorit-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  transition: background 0.2s;
+}
+
+.favorit-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.favorit-oras {
+  font-weight: 600;
+  color: var(--culoare-accent);
+  cursor: pointer;
+  flex: 1;
+}
+
+.favorit-oras:hover {
+  text-decoration: underline;
+}
+
+.favorit-nota {
+  font-size: 0.8rem;
+  color: var(--culoare-text-secundar);
+  font-style: italic;
+}
+
+.btn-sterge-favorit {
+  background: none;
+  border: none;
+  color: var(--culoare-text-secundar);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.btn-sterge-favorit:hover {
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* ===========================
+   COMPARAȚIE MULTI-ORAȘ
+   =========================== */
+.controale-sortare {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.controale-sortare span {
+  font-size: 0.8rem;
+  color: var(--culoare-text-secundar);
+}
+
+.controale-sortare button {
+  padding: 0.25rem 0.7rem;
+  font-size: 0.8rem;
+  border: 1px solid var(--culoare-card-border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--culoare-text);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.controale-sortare button:hover {
+  background: var(--culoare-btn-icon-hover);
+}
+
+.container-comparatie {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 1rem;
+}
+
+.gol-comparatie {
+  color: var(--culoare-text-secundar);
+  font-size: 0.9rem;
+  grid-column: 1 / -1;
+}
+
+.card-comparatie {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--culoare-card-border);
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background 0.2s;
+}
+
+.card-comparatie:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.comparatie-antet {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+
+.comparatie-antet h3 {
+  font-size: 0.95rem;
+  color: var(--culoare-text);
+  line-height: 1.3;
+}
+
+.btn-scoate-comparatie {
+  background: none;
+  border: none;
+  color: var(--culoare-text-secundar);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+
+.btn-scoate-comparatie:hover {
+  color: #f87171;
+}
+
+.card-comparatie img {
+  width: 56px;
+  height: 56px;
+}
+
+.comparatie-temp {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--culoare-accent);
+}
+
+.comparatie-descriere {
+  font-size: 0.8rem;
+  color: var(--culoare-text-secundar);
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.comparatie-detalii {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  border-top: 1px solid var(--culoare-card-border);
+  padding-top: 0.5rem;
+  margin-top: 0.2rem;
+}
+
+.comparatie-detalii span {
+  font-size: 0.78rem;
+  color: var(--culoare-text-secundar);
+}
+
+/* ===========================
+   ISTORIC CĂUTĂRI
+   =========================== */
+.lista-istoric {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.lista-istoric li {
+  background: rgba(226, 185, 111, 0.1);
+  border: 1px solid rgba(226, 185, 111, 0.3);
+  border-radius: 20px;
+  padding: 0.3rem 0.9rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  color: var(--culoare-accent);
+}
+
+.lista-istoric li:hover {
+  background: rgba(226, 185, 111, 0.25);
+}
+
+.lista-istoric li.gol,
+.lista-favorite li.gol {
+  color: var(--culoare-text-secundar);
+  background: none;
+  border: none;
+  cursor: default;
+  padding: 0;
+}
+
+/* ===========================
+   STĂRI — EROARE & ÎNCĂRCARE
+   =========================== */
+.eroare {
+  background: var(--culoare-eroare-bg);
+  border: 1px solid var(--culoare-eroare-border);
+  border-radius: 10px;
+  padding: 1rem;
+  color: var(--culoare-eroare-text);
+  text-align: center;
+}
+
+.incarcare {
+  text-align: center;
+  padding: 3rem 0;
+  color: var(--culoare-accent);
+  animation: puls 1s infinite;
+}
+
+@keyframes puls {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ===========================
+   LOADING OVERLAY
+   =========================== */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: #0a0f1e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  color: var(--culoare-accent);
+  gap: 1rem;
+  font-size: 1rem;
+}
+
+.loading-spinner {
+  width: 44px;
+  height: 44px;
+  border: 4px solid rgba(226, 185, 111, 0.2);
+  border-top-color: var(--culoare-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===========================
+   USER INFO + AUTH BUTTONS
+   =========================== */
+.info-user {
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--culoare-text-secundar);
+  background: var(--culoare-btn-icon-bg);
+  border: 1px solid var(--culoare-card-border);
+  border-radius: 10px;
+  padding: 0.4rem 0.75rem;
+  white-space: nowrap;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-admin {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-logout {
+  border-color: rgba(239, 68, 68, 0.25) !important;
+  color: #f87171 !important;
+}
+
+.btn-logout:hover {
+  background: rgba(239, 68, 68, 0.12) !important;
+}
+
+/* ===========================
+   INDICATOR VOCE
+   =========================== */
+.indicator-voce {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--culoare-accent);
+  background: rgba(226, 185, 111, 0.08);
+  border: 1px solid rgba(226, 185, 111, 0.2);
+  border-radius: 20px;
+  padding: 0.4rem 1rem;
+  width: fit-content;
+}
+
+.punct-voce {
+  width: 10px;
+  height: 10px;
+  background: #f87171;
+  border-radius: 50%;
+  animation: pulseRed 0.8s ease-in-out infinite;
+}
+
+@keyframes pulseRed {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.4); opacity: 0.5; }
+}
+
+.btn-icon.ascultare {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border-color: rgba(239, 68, 68, 0.4) !important;
+  animation: pulseRed 0.8s ease-in-out infinite;
+}
+
+/* ===========================
+   COMUNITATE
+   =========================== */
+.lista-comunitate {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.item-comunitate {
+  display: grid;
+  grid-template-columns: 28px 1fr auto auto;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.item-comunitate:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.comunitate-rank {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.comunitate-oras {
+  font-weight: 600;
+  color: var(--culoare-text);
+  font-size: 0.9rem;
+}
+
+.comunitate-bara-wrap {
+  width: 80px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.comunitate-bara {
+  height: 100%;
+  background: linear-gradient(90deg, var(--culoare-accent), #f0c982);
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+.comunitate-count {
+  font-size: 0.75rem;
+  color: var(--culoare-text-secundar);
+  white-space: nowrap;
+}
+
+/* Conținut aplicație deasupra background-ului animat */
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===========================
+   HARTĂ LEAFLET
+   =========================== */
+.sectiune-harta {
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+.harta-container {
+  height: 400px;
+  width: 100%;
+  border-radius: 0 0 12px 12px;
+  z-index: 1;
+}
+
+/* Leaflet popup & tooltip adaptat la temă */
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: rgba(15, 20, 40, 0.95) !important;
+  color: #f0f4ff !important;
+  border: 1px solid rgba(226, 185, 111, 0.3) !important;
+  backdrop-filter: blur(10px);
+}
+
+.leaflet-tooltip {
+  background: rgba(15, 20, 40, 0.9) !important;
+  color: #e2b96f !important;
+  border: 1px solid rgba(226, 185, 111, 0.3) !important;
+  font-weight: 600;
+}
+
+[data-tema="luminos"] .leaflet-popup-content-wrapper,
+[data-tema="luminos"] .leaflet-popup-tip {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #1e293b !important;
+  border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media (max-width: 600px) {
+  .antet-aplicatie {
+    flex-wrap: wrap;
+  }
+
+  .prognoza-grila {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .prognoza-grila .card-zi:nth-child(n+4) {
+    display: none;
+  }
+
+  .detalii-card {
+    grid-template-columns: 1fr;
+  }
+
+  .temperatura {
+    font-size: 2.2rem;
+  }
+
+  .container-comparatie {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sectiune-antet {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ===========================
+   RADAR METEO LIVE
+   =========================== */
+
+.radar-antet {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.radar-controale {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.btn-radar {
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  border: 1px solid var(--culoare-card-border);
+  background: var(--culoare-card);
+  color: var(--culoare-text);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-radar:hover {
+  border-color: var(--culoare-accent);
+  color: var(--culoare-accent);
+}
+
+.btn-radar.activ {
+  background: var(--culoare-accent);
+  color: #1a1a2e;
+  border-color: var(--culoare-accent);
+  font-weight: 700;
+}
+
+/* ===========================
+   LIVE BADGE SSE
+   =========================== */
+
+.antet-card-sus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #22c55e;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.live-badge::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: puls-live 1.5s ease-in-out infinite;
+}
+
+@keyframes puls-live {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(1.5); }
+}
+
+[data-live-temp].live-update,
+[data-live-feels-like].live-update,
+[data-live-humidity].live-update,
+[data-live-wind].live-update {
+  animation: flash-live 0.45s ease;
+}
+
+@keyframes flash-live {
+  0%   { color: var(--culoare-accent); }
+  100% { color: inherit; }
+}
+
+/* ===========================
+   BRIEFING ZILNIC INTELIGENT
+   =========================== */
+
+.briefing-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.briefing-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.55rem 0.8rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--culoare-text);
+  border: 1px solid transparent;
+  transition: background 0.2s;
+}
+
+.briefing-item.alerta {
+  background: rgba(239, 68, 68, 0.09);
+  border-color: rgba(239, 68, 68, 0.25);
+  color: #fca5a5;
+}
+
+[data-tema="luminos"] .briefing-item.alerta {
+  color: #dc2626;
+}
+
+/* ===========================
+   FEREASTRA OPTIMĂ ACTIVITATE
+   =========================== */
+
+.activitate-selector {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.btn-activitate {
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  border: 1px solid var(--culoare-card-border);
+  background: var(--culoare-card);
+  color: var(--culoare-text);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-activitate:hover {
+  border-color: var(--culoare-accent);
+  color: var(--culoare-accent);
+}
+
+.btn-activitate.activ {
+  background: var(--culoare-accent);
+  color: #1a1a2e;
+  border-color: var(--culoare-accent);
+  font-weight: 700;
+}
+
+.activitate-timeline-wrap {
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.activitate-mesaj {
+  font-size: 0.88rem;
+  color: var(--culoare-text-secundar);
+  margin-bottom: 0.75rem;
+}
+
+.activitate-mesaj strong {
+  color: var(--culoare-accent);
+}
+
+.activitate-mesaj.alerta-mesaj {
+  color: #fca5a5;
+}
+
+.activitate-timeline {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+}
+
+.activitate-slot {
+  flex: 1;
+  min-width: 58px;
+  border-radius: 10px;
+  padding: 0.5rem 0.35rem;
+  text-align: center;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.activitate-slot.verde {
+  background: rgba(34, 197, 94, 0.14);
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.activitate-slot.galben {
+  background: rgba(234, 179, 8, 0.11);
+  border-color: rgba(234, 179, 8, 0.25);
+}
+
+.activitate-slot.rosu {
+  background: rgba(239, 68, 68, 0.11);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.activitate-slot.optim {
+  border-color: var(--culoare-accent);
+  box-shadow: 0 0 14px rgba(226, 185, 111, 0.3);
+}
+
+.slot-ora {
+  font-size: 0.68rem;
+  color: var(--culoare-text-secundar);
+  margin-bottom: 0.15rem;
+}
+
+.slot-icon-img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.slot-temp {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--culoare-text);
+  margin-top: 0.1rem;
+}
+
+.slot-label {
+  font-size: 0.62rem;
+  color: var(--culoare-accent);
+  margin-top: 0.2rem;
+  font-weight: 700;
+}
+
+.activitate-gol {
+  font-size: 0.87rem;
+  color: var(--culoare-text-secundar);
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .radar-antet {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .activitate-slot {
+    min-width: 50px;
+  }
+
+  .activitate-timeline {
+    gap: 0.2rem;
+  }
+}
+
+/* ===========================
+   WEATHER TIME MACHINE
+   =========================== */
+
+.time-machine-wrap {
+  padding: 1.25rem 1.5rem;
+}
+
+.tm-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.tm-titlu {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--culoare-accent);
+  letter-spacing: 0.03em;
+}
+
+.tm-subtitlu {
+  font-size: 0.82rem;
+  color: var(--culoare-text-secundar);
+  opacity: 0.8;
+}
+
+/* ─── Slider wrap ─────────────────────────────────────────── */
+
+.tm-slider-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.tm-cap {
+  font-size: 0.75rem;
+  color: var(--culoare-text-secundar);
+  white-space: nowrap;
+  min-width: 70px;
+  font-family: 'Courier New', monospace;
+}
+
+.tm-cap:last-child {
+  text-align: right;
+}
+
+/* Custom range slider */
+.tm-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  background: linear-gradient(
+    to right,
+    var(--culoare-accent) 0%,
+    var(--culoare-accent) var(--val, 0%),
+    rgba(255, 255, 255, 0.12) var(--val, 0%),
+    rgba(255, 255, 255, 0.12) 100%
+  );
+  transition: background 0.1s;
+}
+
+.tm-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--culoare-accent);
+  border: 2.5px solid var(--culoare-input-bg);
+  box-shadow: 0 0 0 3px rgba(226, 185, 111, 0.25), 0 2px 8px rgba(0,0,0,0.35);
+  cursor: grab;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.tm-slider::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.2);
+  box-shadow: 0 0 0 5px rgba(226, 185, 111, 0.35), 0 2px 12px rgba(0,0,0,0.45);
+}
+
+.tm-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--culoare-accent);
+  border: 2.5px solid var(--culoare-input-bg);
+  box-shadow: 0 0 0 3px rgba(226, 185, 111, 0.25);
+  cursor: grab;
+}
+
+/* ─── Time label ──────────────────────────────────────────── */
+
+.tm-timp-label {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  font-family: 'Courier New', monospace;
+  flex-wrap: wrap;
+}
+
+.tm-zi {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--culoare-text);
+}
+
+.tm-ora {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--culoare-accent);
+  letter-spacing: 0.05em;
+}
+
+.tm-relativ {
+  font-size: 0.78rem;
+  color: var(--culoare-text-secundar);
+  background: rgba(255,255,255,0.07);
+  padding: 0.15rem 0.5rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ─── Mini weather card ───────────────────────────────────── */
+
+.tm-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: all 0.25s ease;
+  animation: tmCardIn 0.2s ease;
+}
+
+@keyframes tmCardIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.tm-card-stanga {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tm-icon {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+}
+
+.tm-temp-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.tm-temp {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--culoare-text);
+  line-height: 1;
+}
+
+.tm-descriere {
+  font-size: 0.8rem;
+  color: var(--culoare-text-secundar);
+  text-transform: capitalize;
+}
+
+.tm-card-dreapta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: right;
+}
+
+.tm-detaliu {
+  font-size: 0.82rem;
+  color: var(--culoare-text-secundar);
+  white-space: nowrap;
+}
+
+/* ─── Responsive ──────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .tm-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .tm-card-dreapta {
+    text-align: left;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+  }
+
+  .tm-slider-wrap {
+    flex-wrap: wrap;
+  }
+
+  .tm-cap {
+    min-width: unset;
+    width: 100%;
+  }
+}

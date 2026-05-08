@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ro" data-tema="intuneric">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — Aplicație Vreme</title>
+  <link rel="stylesheet" href="styles/style.css" />
+  <link rel="stylesheet" href="styles/admin.css" />
+  <link rel="manifest" href="/manifest.json" />
+</head>
+<body>
+
+  <!-- Loading overlay -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="loading-spinner"></div>
+    <p>Se încarcă...</p>
+  </div>
+
+  <div class="admin-wrap">
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-logo">🛡️ Admin</div>
+      <nav class="sidebar-nav">
+        <button class="nav-item activ" data-sectiune="utilizatori">👥 Utilizatori</button>
+        <button class="nav-item" data-sectiune="statistici">📊 Statistici</button>
+        <button class="nav-item" data-sectiune="comunitate">🌍 Comunitate</button>
+      </nav>
+      <div class="sidebar-footer">
+        <span id="admin-user-name" class="admin-user"></span>
+        <a href="/index.html" class="btn-back">← Înapoi la app</a>
+        <button id="btn-deconecteaza" class="btn-logout">🚪 Deconectare</button>
+      </div>
+    </aside>
+
+    <!-- Conținut principal -->
+    <main class="admin-main">
+
+      <!-- Header -->
+      <div class="admin-header">
+        <h1 id="titlu-sectiune">👥 Utilizatori</h1>
+        <button id="btn-refresh" class="btn-refresh" title="Reîncarcă datele">🔄 Reîncarcă</button>
+      </div>
+
+      <!-- Carduri statistici rapide -->
+      <div class="stats-rapide" id="stats-rapide">
+        <div class="stat-card">
+          <div class="stat-val" id="stat-utilizatori">—</div>
+          <div class="stat-label">Utilizatori</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="stat-cautari">—</div>
+          <div class="stat-label">Căutări totale</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="stat-favorite">—</div>
+          <div class="stat-label">Favorite totale</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="stat-orase">—</div>
+          <div class="stat-label">Orașe unice</div>
+        </div>
+      </div>
+
+      <!-- Secțiunea Utilizatori -->
+      <section id="sectiune-utilizatori" class="admin-sectiune">
+        <div class="tabel-header">
+          <h2>Lista utilizatorilor</h2>
+          <input type="text" id="filtru-utilizatori" class="filtru-input" placeholder="🔍 Caută utilizator..." />
+        </div>
+        <div class="tabel-wrap">
+          <table class="admin-tabel" id="tabel-utilizatori">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nume</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Înregistrat</th>
+                <th>Căutări</th>
+                <th>Favorite</th>
+                <th>Acțiuni</th>
+              </tr>
+            </thead>
+            <tbody id="corp-tabel-utilizatori">
+              <tr><td colspan="8" class="tabel-gol">Se încarcă...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Secțiunea Statistici -->
+      <section id="sectiune-statistici" class="admin-sectiune ascuns">
+        <h2>Statistici globale</h2>
+        <div class="grafic-bare" id="grafic-bare-cautari"></div>
+      </section>
+
+      <!-- Secțiunea Comunitate -->
+      <section id="sectiune-comunitate" class="admin-sectiune ascuns">
+        <h2>Top orașe căutate</h2>
+        <div id="top-orase-admin" class="top-orase-admin"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <script type="module" src="src/pages/admin.js"></script>
+</body>
+</html>

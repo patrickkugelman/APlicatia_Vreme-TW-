@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <title>Capitol 8 — Securitate în Browser</title>
+  <style>
+    body { font-family: monospace; background: #1e1e1e; color: #d4d4d4; padding: 2rem; }
+    h1 { color: #569cd6; }
+    p { color: #9ca3af; margin-bottom: 0.5rem; }
+    input { padding: 0.5rem; width: 300px; background: #374151; color: #fff; border: 1px solid #4b5563; border-radius: 4px; }
+    button { margin: 0.5rem; padding: 0.5rem 1rem; cursor: pointer; background: #374151; color: #fff; border: 1px solid #4b5563; border-radius: 6px; }
+    #output-rau { background: #3b1212; padding: 1rem; border-radius: 6px; margin: 0.5rem 0; border: 1px solid #7f1d1d; }
+    #output-bun { background: #0f2d1a; padding: 1rem; border-radius: 6px; margin: 0.5rem 0; border: 1px solid #14532d; }
+  </style>
+</head>
+<body>
+  <h1>Capitol 8 — Securitate în Browser</h1>
+  <p>Testează: introdu <code>&lt;img src=x onerror="alert('XSS!')"&gt;</code> mai jos.</p>
+
+  <input type="text" id="input-utilizator" placeholder="Introdu text..." />
+  <button id="btn-rau">Afișare NESIGURĂ (innerHTML)</button>
+  <button id="btn-bun">Afișare SIGURĂ (textContent)</button>
+
+  <p>Rezultat NESIGUR (innerHTML — XSS posibil):</p>
+  <div id="output-rau"></div>
+
+  <p>Rezultat SIGUR (textContent — XSS imposibil):</p>
+  <div id="output-bun"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

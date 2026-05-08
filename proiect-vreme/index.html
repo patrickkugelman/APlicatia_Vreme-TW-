@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ro" data-tema="intuneric">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aplicație Vreme</title>
+  <link rel="stylesheet" href="styles/style.css" />
+  <link rel="stylesheet" href="styles/background-animations.css" />
+  <link rel="manifest" href="/manifest.json" />
+</head>
+<body>
+
+  <!-- Canvas particule meteo (fullscreen, pointer-events:none, z-index:0) -->
+  <canvas id="canvas-particule" style="position:fixed;inset:0;pointer-events:none;z-index:0;"></canvas>
+
+  <!-- Loading overlay (ascuns după verificare auth) -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="loading-spinner"></div>
+    <p>Se încarcă...</p>
+  </div>
+
+  <div class="container">
+
+    <!-- Antet cu controale -->
+    <header class="antet-aplicatie">
+      <div class="antet-stanga">
+        <h1>🌤 Aplicație Vreme</h1>
+        <p class="subtitlu">Vreme în timp real pentru orice oraș din lume</p>
+      </div>
+      <div class="antet-dreapta">
+        <span id="info-user" class="info-user"></span>
+        <a id="link-admin" class="btn-icon btn-admin ascuns" href="/admin.html" title="Panou admin">🛡️</a>
+        <button id="btn-locatie" class="btn-icon" title="Vremea lângă mine">📍</button>
+        <button id="btn-microfon" class="btn-icon" title="Caută cu vocea">🎤</button>
+        <button id="btn-tema" class="btn-icon" title="Comută tema">🌙</button>
+        <button id="btn-setari" class="btn-icon" title="Setări">⚙️</button>
+        <button id="btn-deconecteaza" class="btn-icon btn-logout" title="Deconectare">🚪</button>
+      </div>
+    </header>
+
+    <!-- Panou setări (ascuns implicit) -->
+    <aside id="panou-setari" class="panou-setari ascuns">
+      <h2>Setări</h2>
+      <div class="setari-grila">
+        <label class="setare-item">
+          <span>Temperatură</span>
+          <select id="select-unit-temp">
+            <option value="C">°C (Celsius)</option>
+            <option value="F">°F (Fahrenheit)</option>
+          </select>
+        </label>
+        <label class="setare-item">
+          <span>Vânt</span>
+          <select id="select-unit-vant">
+            <option value="kmh">km/h</option>
+            <option value="mph">mph</option>
+          </select>
+        </label>
+        <div class="setare-item">
+          <span>Alertă sub (°C)</span>
+          <input type="number" id="input-prag-min" placeholder="ex: -5" />
+        </div>
+        <div class="setare-item">
+          <span>Alertă peste (°C)</span>
+          <input type="number" id="input-prag-max" placeholder="ex: 35" />
+        </div>
+      </div>
+      <button id="btn-permite-notificari" class="btn-notificari">Activează notificări browser</button>
+    </aside>
+
+    <!-- Formular de căutare -->
+    <form id="form-cautare" class="form-cautare">
+      <input
+        type="text"
+        id="input-oras"
+        placeholder="Ex: București, Cluj-Napoca, Paris..."
+        autocomplete="off"
+        required
+      />
+      <button type="submit">Caută</button>
+    </form>
+
+    <!-- Indicator ascultare voce -->
+    <div id="indicator-voce" class="indicator-voce ascuns">
+      <span class="punct-voce"></span>
+      <span>Ascult... spune un oraș</span>
+    </div>
+
+    <!-- Rezultat vreme curentă -->
+    <main id="container-vreme" class="container-vreme">
+      <p class="mesaj-initial">Caută un oraș pentru a începe sau apasă 📍 pentru locația ta curentă.</p>
+    </main>
+
+    <!-- Butoane acțiuni pe rezultat (ascunse până la prima căutare) -->
+    <div id="actiuni-oras" class="actiuni-oras ascuns">
+      <button id="btn-adauga-favorit" class="btn-actiune">★ Adaugă la favorite</button>
+      <button id="btn-adauga-comparatie" class="btn-actiune">⊕ Adaugă la comparație</button>
+    </div>
+
+    <!-- 🧠 Briefing Zilnic Inteligent (ascuns până la prima căutare) -->
+    <section id="container-briefing" class="sectiune-card ascuns">
+      <h2 class="titlu-sectiune">🧠 Briefing Zilnic</h2>
+      <div id="briefing-continut"></div>
+    </section>
+
+    <!-- ⏱️ Weather Time Machine (ascuns până la prima căutare) -->
+    <section id="container-time-machine" class="sectiune-card ascuns"></section>
+
+    <!-- 🏃 Fereastra Optimă de Activitate (ascuns până la prima căutare) -->
+    <section id="container-activitate" class="sectiune-card ascuns">
+      <h2 class="titlu-sectiune">🏃 Fereastra Optimă de Activitate</h2>
+      <div id="activitate-continut"></div>
+    </section>
+
+    <!-- Grafic temperaturi Chart.js -->
+    <section id="container-grafic" class="container-grafic"></section>
+
+    <!-- Prognoza pe 5 zile -->
+    <section id="container-prognoza"></section>
+
+    <!-- Hartă interactivă Leaflet + Radar OWM Tile Layers -->
+    <section class="sectiune-card sectiune-harta">
+      <div class="radar-antet">
+        <h2 class="titlu-sectiune">🗺️ Hartă interactivă — click pentru vreme</h2>
+        <div id="radar-controale" class="radar-controale">
+          <button class="btn-radar" data-layer="clouds_new">☁️ Nori</button>
+          <button class="btn-radar" data-layer="precipitation_new">🌧️ Precipitații</button>
+          <button class="btn-radar" data-layer="temp_new">🌡️ Temp</button>
+          <button class="btn-radar" data-layer="wind_new">💨 Vânt</button>
+        </div>
+      </div>
+      <div id="harta-vreme" class="harta-container"></div>
+    </section>
+
+    <!-- Orașe favorite (CRUD din backend SQLite) -->
+    <section class="sectiune-card">
+      <h2 class="titlu-sectiune">⭐ Orașe favorite</h2>
+      <ul id="lista-favorite" class="lista-favorite"></ul>
+    </section>
+
+    <!-- Comparație multi-oraș -->
+    <section class="sectiune-card">
+      <div class="sectiune-antet">
+        <h2 class="titlu-sectiune">⚖️ Comparație orașe</h2>
+        <div id="controale-sortare" class="controale-sortare">
+          <span>Sortare:</span>
+          <button data-sortare="temp">Temp ↕</button>
+          <button data-sortare="umiditate">Umiditate ↕</button>
+          <button data-sortare="vant">Vânt ↕</button>
+        </div>
+      </div>
+      <div id="container-comparatie" class="container-comparatie">
+        <p class="gol-comparatie">Caută orașe și folosește butonul ⊕ pentru a le adăuga (maxim 4).</p>
+      </div>
+    </section>
+
+    <!-- Statistici comunitate (căutări globale) -->
+    <section class="sectiune-card">
+      <h2 class="titlu-sectiune">🌍 Top orașe căutate de toți utilizatorii</h2>
+      <ul id="lista-comunitate" class="lista-comunitate">
+        <li class="gol">Se încarcă statistici...</li>
+      </ul>
+    </section>
+
+    <!-- Istoricul căutărilor (persistent în SQLite) -->
+    <section class="sectiune-card">
+      <h2 class="titlu-sectiune">🕐 Căutări recente</h2>
+      <ul id="lista-istoric" class="lista-istoric"></ul>
+    </section>
+
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+  <script type="module">
+    // Service worker doar în producție (nu pe localhost/dev)
+    if ('serviceWorker' in navigator && import.meta.env.PROD) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>

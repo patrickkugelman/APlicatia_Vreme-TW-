@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <title>Capitol 3 — DOM și Evenimente</title>
+  <style>
+    body { font-family: sans-serif; background: #1e1e1e; color: #d4d4d4; padding: 2rem; }
+    h1 { color: #569cd6; }
+    button { margin: 0.5rem; padding: 0.5rem 1rem; cursor: pointer; background: #374151; color: #fff; border: 1px solid #4b5563; border-radius: 6px; }
+    button:hover { background: #4b5563; }
+    #lista-orase li { padding: 0.4rem 0.8rem; margin: 0.3rem 0; background: #374151; border-radius: 4px; cursor: pointer; list-style: none; }
+    #lista-orase li:hover { background: #4b5563; }
+    #output { background: #111; padding: 1rem; border-radius: 6px; min-height: 60px; margin-top: 1rem; color: #4ade80; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <h1>Capitol 3 — DOM și Evenimente</h1>
+
+  <button id="btn-adauga">Adaugă oraș</button>
+  <button id="btn-schimba-culoare">Schimbă culoare titlu</button>
+  <button id="btn-sterge-toate">Șterge toate</button>
+
+  <ul id="lista-orase">
+    <li data-oras="bucuresti">București</li>
+    <li data-oras="cluj">Cluj-Napoca</li>
+    <li data-oras="timisoara">Timișoara</li>
+  </ul>
+
+  <div id="output">Apasă pe un buton sau pe un oraș...</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
