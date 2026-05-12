@@ -41,4 +41,34 @@ router.post('/', (req, res) => {
   res.status(201).send();
 });
 
+// GET /api/history/stats — agregări personale
+router.get('/stats', (req, res) => {
+  const db = getDb();
+  const userId = String(req.userId);
+
+  const { total } = db
+    .prepare('SELECT COUNT(*) as total FROM history WHERE client_id = ?')
+    .get(userId);
+
+  const topOrase = db
+    .prepare(
+      `SELECT city, COUNT(*) as count
+       FROM history WHERE client_id = ?
+       GROUP BY city ORDER BY count DESC LIMIT 5`
+    )
+    .all(userId);
+
+  const perZi = db
+    .prepare(
+      `SELECT DATE(searched_at) as zi, COUNT(*) as count
+       FROM history WHERE client_id = ?
+         AND searched_at >= datetime('now', '-7 days')
+       GROUP BY DATE(searched_at)
+       ORDER BY zi ASC`
+    )
+    .all(userId);
+
+  res.json({ total, topOrase, perZi });
+});
+
 export default router;

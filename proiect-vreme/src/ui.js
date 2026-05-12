@@ -5,7 +5,8 @@ import {
   convertesteDirectiVant,
   urlPictograma,
   formateazaZiSaptamana,
-  filtreazaPrognozeZilnice
+  filtreazaPrognozeZilnice,
+  calculeazaConfort
 } from './utils.js';
 
 // Afișează cardul cu informații meteo curente
@@ -13,13 +14,17 @@ export function randeazaVreme(date, container, setari = {}) {
   const { unitTemp = 'C', unitVant = 'kmh' } = setari;
   const { name, main, weather, wind, sys, dt } = date;
   const [descriere] = weather;
+  const confort = calculeazaConfort(main.feels_like, main.humidity);
 
   container.innerHTML = `
     <div class="card-vreme">
       <div class="antet-card">
         <div class="antet-card-sus">
           <h2>${name}, ${sys.country}</h2>
-          <span class="live-badge" id="live-badge">🟢 LIVE</span>
+          <div class="antet-card-badges">
+            <span class="confort-badge ${confort.clasa}">${confort.label}</span>
+            <span class="live-badge" id="live-badge">🟢 LIVE</span>
+          </div>
         </div>
         <p class="data">${formateazaData(dt)}</p>
       </div>

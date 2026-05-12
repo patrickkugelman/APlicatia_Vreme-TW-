@@ -4,7 +4,7 @@ import {
   obtineFavorite, adaugaFavorit, stergeFavorit,
   adaugaInIstoricBackend, obtineIstoricBackend,
   obtineSetariBackend, actualizeazaSetariBackend,
-  obtineTopOrase
+  obtineTopOrase, obtineIstoricStats
 } from './api.js';
 import {
   randeazaVreme, randeazaPrognoza, randeazaIstoric,
@@ -15,7 +15,7 @@ import { randeazaGraficPrognoza } from './chart.js';
 import { adaugaInComparatie, scoateDinComparatie, obtineOraseComparatie, sorteazaComparatie } from './compare.js';
 import { initializeazaTema, comutaTema } from './theme.js';
 import { obtineLocatieUser } from './geo.js';
-import { cerePermisiuneNotificari, estePermisiuneAcordata, seteazaPraguri, verificaSiTrimiteNotificare } from './notifications.js';
+import { cerePermisiuneNotificari, estePermisiuneAcordata, seteazaPraguri, verificaSiTrimiteNotificare, verificaPloaieUrmatoarele3Ore } from './notifications.js';
 import { aplicaSetari, obtineSetariActive } from './settings.js';
 import { protejeazaPagina } from './auth-guard.js';
 import { deconecteaza, esteAdmin, obtineToken } from './auth.js';
@@ -27,6 +27,8 @@ import { initTimeMachine, actualizeazaTimeMachine } from './components/time-mach
 import { evidentiazaPunctGrafic } from './chart.js';
 import { randeazaBriefing } from './components/briefing.js';
 import { randeazaActivitateOptimizator } from './components/activity-optimizer.js';
+import { randeazaDashboard } from './components/dashboard.js';
+import { randeazaAnalytics } from './components/analytics.js';
 import { formateazaTemperatura, formateazaVant, convertesteDirectiVant } from './utils.js';
 
 // ─── SSE Live Updates — state modul ──────────────────────────────────────────
@@ -102,6 +104,10 @@ class AplicatieVreme {
     this.indicatorVoce = document.getElementById('indicator-voce');
     this.infoUser = document.getElementById('info-user');
     this.linkAdmin = document.getElementById('link-admin');
+    this.btnDashboard = document.getElementById('btn-dashboard');
+    this.containerDashboard = document.getElementById('container-dashboard');
+    this.btnAnalytics = document.getElementById('btn-analytics');
+    this.containerAnalytics = document.getElementById('container-analytics');
 
     this.dateVremeActuale = null;
     this.datePrognozaActuale = null;
@@ -254,6 +260,7 @@ class AplicatieVreme {
         adaugaInIstoricBackend(dateVreme.name).catch(() => {});
         await Promise.all([this.incarcaIstoric(), this.incarcaComunitate()]);
         verificaSiTrimiteNotificare(dateVreme);
+        verificaPloaieUrmatoarele3Ore(datePrognoza, dateVreme.name);
       } catch (eroare) {
         randeazaEroare(eroare.message, this.containerVreme);
       }
@@ -400,6 +407,47 @@ class AplicatieVreme {
       }
     });
 
+    // Dashboard favorite — toggle afișare
+    this.btnDashboard?.addEventListener('click', async () => {
+      const ascuns = this.containerDashboard.classList.contains('ascuns');
+      if (ascuns) {
+        this.containerDashboard.classList.remove('ascuns');
+        this.btnDashboard.textContent = 'Ascunde dashboard';
+        const fav = await obtineFavorite().catch(() => []);
+        await randeazaDashboard(fav, this.containerDashboard, obtineSetariActive());
+      } else {
+        this.containerDashboard.classList.add('ascuns');
+        this.btnDashboard.textContent = 'Afișează dashboard';
+      }
+    });
+
+    // Click pe card din dashboard → caută orașul respectiv
+    this.containerDashboard?.addEventListener('click', (e) => {
+      const card = e.target.closest('[data-oras]');
+      if (card) {
+        const oras = card.dataset.oras;
+        if (oras) { this.inputOras.value = oras; this.cautaVreme(oras); }
+      }
+    });
+
+    // Analytics personale — toggle afișare
+    this.btnAnalytics?.addEventListener('click', async () => {
+      const ascuns = this.containerAnalytics.classList.contains('ascuns');
+      if (ascuns) {
+        this.containerAnalytics.classList.remove('ascuns');
+        this.btnAnalytics.textContent = 'Ascunde statistici';
+        try {
+          const stats = await obtineIstoricStats();
+          randeazaAnalytics(stats, this.containerAnalytics);
+        } catch {
+          this.containerAnalytics.innerHTML = '<p class="gol">Statistici indisponibile — pornește serverul.</p>';
+        }
+      } else {
+        this.containerAnalytics.classList.add('ascuns');
+        this.btnAnalytics.textContent = 'Afișează statistici';
+      }
+    });
+
     // Radar Meteo Live — toggle layer OWM pe hartă
     document.getElementById('radar-controale')?.addEventListener('click', (e) => {
       const btn = e.target.closest('.btn-radar');
@@ -487,6 +535,7 @@ class AplicatieVreme {
       await Promise.all([this.incarcaIstoric(), this.incarcaComunitate()]);
 
       verificaSiTrimiteNotificare(dateVreme);
+      verificaPloaieUrmatoarele3Ore(datePrognoza, dateVreme.name);
     } catch (eroare) {
       randeazaEroare(eroare.message, this.containerVreme);
     }
@@ -566,6 +615,7 @@ class AplicatieVreme {
       await Promise.all([this.incarcaIstoric(), this.incarcaComunitate()]);
 
       verificaSiTrimiteNotificare(dateVreme);
+      verificaPloaieUrmatoarele3Ore(datePrognoza, dateVreme.name);
     } catch (eroare) {
       randeazaEroare(eroare.message, this.containerVreme);
     }

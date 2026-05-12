@@ -41,6 +41,20 @@ export function formateazaZiSaptamana(timestamp) {
   return new Date(timestamp * 1000).toLocaleDateString('ro-RO', { weekday: 'short' });
 }
 
+// Returnează eticheta de confort termic și clasa CSS corespunzătoare
+export function calculeazaConfort(feelsLike, humidity) {
+  if (feelsLike <= -25) return { label: 'Frig extrem',  clasa: 'confort-pericol' };
+  if (feelsLike <= -10) return { label: 'Frig sever',   clasa: 'confort-rau' };
+  if (feelsLike <= 0)   return { label: 'Frig',         clasa: 'confort-rece' };
+  if (feelsLike <= 10)  return { label: 'Răcoros',      clasa: 'confort-racoros' };
+  if (feelsLike <= 18)  return { label: 'Plăcut',       clasa: 'confort-bun' };
+  if (feelsLike <= 24)  return { label: 'Confortabil',  clasa: 'confort-bun' };
+  if (feelsLike <= 28)  return { label: 'Cald',         clasa: 'confort-cald' };
+  if (feelsLike <= 35 && humidity > 65) return { label: 'Sufocant', clasa: 'confort-rau' };
+  if (feelsLike <= 35)  return { label: 'Călduros',     clasa: 'confort-cald' };
+  return { label: 'Caniculă', clasa: 'confort-pericol' };
+}
+
 // Extrage câte o înregistrare pe zi din lista de prognoza (cea mai apropiată de ora 12:00)
 export function filtreazaPrognozeZilnice(lista) {
   const peZi = {};

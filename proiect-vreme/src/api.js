@@ -72,6 +72,9 @@ export const actualizeazaSetariBackend = (setari) =>
 // Comunitate
 export const obtineTopOrase = () => cereBackend('/community');
 
+// Statistici personale
+export const obtineIstoricStats = () => cereBackend('/history/stats');
+
 // Admin
 export const obtineUtilizatoriAdmin = () => cereBackend('/admin/users');
 export const stergeUtilizatorAdmin = (id) => cereBackend(`/admin/users/${id}`, { method: 'DELETE' });

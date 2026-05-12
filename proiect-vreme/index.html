@@ -134,8 +134,12 @@
 
     <!-- Orașe favorite (CRUD din backend SQLite) -->
     <section class="sectiune-card">
-      <h2 class="titlu-sectiune">⭐ Orașe favorite</h2>
+      <div class="sectiune-antet">
+        <h2 class="titlu-sectiune">⭐ Orașe favorite</h2>
+        <button id="btn-dashboard" class="btn-sectiune">Afișează dashboard</button>
+      </div>
       <ul id="lista-favorite" class="lista-favorite"></ul>
+      <div id="container-dashboard" class="container-dashboard ascuns"></div>
     </section>
 
     <!-- Comparație multi-oraș -->
@@ -166,6 +170,15 @@
     <section class="sectiune-card">
       <h2 class="titlu-sectiune">🕐 Căutări recente</h2>
       <ul id="lista-istoric" class="lista-istoric"></ul>
+    </section>
+
+    <!-- Statistici personale -->
+    <section class="sectiune-card">
+      <div class="sectiune-antet">
+        <h2 class="titlu-sectiune">📊 Statisticile mele</h2>
+        <button id="btn-analytics" class="btn-sectiune">Afișează statistici</button>
+      </div>
+      <div id="container-analytics" class="container-analytics ascuns"></div>
     </section>
 
   </div>

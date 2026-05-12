@@ -17,6 +17,29 @@ export function seteazaPraguri(min, max) {
   pragMaxim = max != null ? parseFloat(max) : null;
 }
 
+// Trimite notificare dacă urmează ploaie în intervalele de 3h ale prognozei
+export function verificaPloaieUrmatoarele3Ore(datePrognoza, numeOras) {
+  if (!estePermisiuneAcordata()) return;
+  if (!datePrognoza?.list?.length) return;
+
+  const acum = Date.now() / 1000;
+  const limita = acum + 3 * 3600;
+
+  const intervalPloi = datePrognoza.list
+    .filter((p) => p.dt >= acum && p.dt <= limita)
+    .find((p) => (p.pop || 0) > 0.5);
+
+  if (!intervalPloi) return;
+
+  const ora = new Date(intervalPloi.dt * 1000).toLocaleTimeString('ro-RO', {
+    hour: '2-digit', minute: '2-digit'
+  });
+  new Notification(`Ploaie probabilă — ${numeOras}`, {
+    body: `Șanse mari de ploaie în jurul orei ${ora}. Ia umbrela!`,
+    icon: 'https://openweathermap.org/img/wn/10d@2x.png'
+  });
+}
+
 // Trimite notificare dacă temperatura depășește pragurile setate
 export function verificaSiTrimiteNotificare(dateVreme) {
   if (!estePermisiuneAcordata()) return;

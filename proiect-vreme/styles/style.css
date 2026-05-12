@@ -1175,6 +1175,247 @@ body {
 }
 
 /* ===========================
+   COMFORT BADGE
+   =========================== */
+
+.antet-card-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.confort-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.confort-pericol { background: rgba(239,68,68,0.18);   color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+.confort-rau     { background: rgba(249,115,22,0.18);  color: #fb923c; border: 1px solid rgba(249,115,22,0.3); }
+.confort-rece    { background: rgba(96,165,250,0.18);  color: #93c5fd; border: 1px solid rgba(96,165,250,0.3); }
+.confort-racoros { background: rgba(52,211,153,0.15);  color: #6ee7b7; border: 1px solid rgba(52,211,153,0.25); }
+.confort-bun     { background: rgba(34,197,94,0.15);   color: #86efac; border: 1px solid rgba(34,197,94,0.25); }
+.confort-cald    { background: rgba(234,179,8,0.18);   color: #fde047; border: 1px solid rgba(234,179,8,0.3); }
+
+[data-tema="luminos"] .confort-pericol { color: #dc2626; }
+[data-tema="luminos"] .confort-rau     { color: #ea580c; }
+[data-tema="luminos"] .confort-rece    { color: #2563eb; }
+[data-tema="luminos"] .confort-racoros { color: #059669; }
+[data-tema="luminos"] .confort-bun     { color: #16a34a; }
+[data-tema="luminos"] .confort-cald    { color: #ca8a04; }
+
+/* ===========================
+   BUTON SECTIUNE TOGGLE
+   =========================== */
+
+.btn-sectiune {
+  padding: 0.3rem 0.85rem;
+  border-radius: 20px;
+  border: 1px solid var(--culoare-accent);
+  background: transparent;
+  color: var(--culoare-accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.btn-sectiune:hover {
+  background: var(--culoare-accent);
+  color: #1a1a2e;
+}
+
+/* ===========================
+   DASHBOARD FAVORITE
+   =========================== */
+
+.container-dashboard {
+  margin-top: 1rem;
+}
+
+.dashboard-grila {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.dashboard-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--culoare-card-border);
+  border-radius: 12px;
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  text-align: center;
+}
+
+.dashboard-card:hover {
+  background: rgba(255,255,255,0.09);
+  transform: translateY(-2px);
+}
+
+.dashboard-card-eroare {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.dashboard-card-eroare:hover {
+  transform: none;
+  background: rgba(255,255,255,0.04);
+}
+
+.dashboard-tara {
+  font-size: 0.68rem;
+  color: var(--culoare-text-secundar);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.dashboard-oras {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--culoare-text);
+  line-height: 1.2;
+}
+
+.dashboard-icon {
+  width: 52px;
+  height: 52px;
+}
+
+.dashboard-temp {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--culoare-accent);
+}
+
+.dashboard-descriere {
+  font-size: 0.73rem;
+  color: var(--culoare-text-secundar);
+  text-transform: capitalize;
+}
+
+.dashboard-minmax {
+  font-size: 0.73rem;
+  color: var(--culoare-text-secundar);
+}
+
+.gol-dashboard,
+.dashboard-indisponibil {
+  font-size: 0.85rem;
+  color: var(--culoare-text-secundar);
+  text-align: center;
+  padding: 0.75rem 0;
+}
+
+.dashboard-indisponibil {
+  color: var(--culoare-eroare-text);
+}
+
+/* ===========================
+   ANALYTICS PERSONALE
+   =========================== */
+
+.container-analytics {
+  margin-top: 0.25rem;
+}
+
+.analytics-sumar {
+  display: flex;
+  gap: 2.5rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.analytics-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.analytics-numar {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--culoare-accent);
+  line-height: 1;
+}
+
+.analytics-eticheta {
+  font-size: 0.75rem;
+  color: var(--culoare-text-secundar);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.analytics-corp {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.analytics-top h4,
+.analytics-grafic-wrap h4 {
+  font-size: 0.78rem;
+  color: var(--culoare-text-secundar);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.6rem;
+}
+
+.analytics-top-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--culoare-card-border);
+  font-size: 0.86rem;
+}
+
+.analytics-top-item:last-child {
+  border-bottom: none;
+}
+
+.analytics-rank {
+  color: var(--culoare-text-secundar);
+  font-size: 0.78rem;
+  width: 1.4rem;
+  flex-shrink: 0;
+}
+
+.analytics-oras-text {
+  flex: 1;
+  color: var(--culoare-text);
+  font-weight: 600;
+}
+
+.analytics-count {
+  font-size: 0.76rem;
+  color: var(--culoare-text-secundar);
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .analytics-corp {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-grila {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}
+
+/* ===========================
    WEATHER TIME MACHINE
    =========================== */
 
