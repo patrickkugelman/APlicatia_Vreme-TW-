@@ -29,6 +29,7 @@ import { randeazaBriefing } from './components/briefing.js';
 import { randeazaActivitateOptimizator } from './components/activity-optimizer.js';
 import { randeazaDashboard } from './components/dashboard.js';
 import { randeazaAnalytics } from './components/analytics.js';
+import { initCityTabs } from './components/city-tabs.js';
 import { formateazaTemperatura, formateazaVant, convertesteDirectiVant } from './utils.js';
 
 // ─── SSE Live Updates — state modul ──────────────────────────────────────────
@@ -494,6 +495,13 @@ class AplicatieVreme {
         console.warn('Grafic indisponibil:', errGrafic.message);
       }
 
+      // 🌍 City Info Tabs
+      const containerCityTabs = document.getElementById('container-city-tabs');
+      if (containerCityTabs) {
+        initCityTabs(containerCityTabs, dateVreme);
+        containerCityTabs.classList.remove('ascuns');
+      }
+
       // Briefing Zilnic Inteligent
       const containerBriefing = document.getElementById('container-briefing');
       if (containerBriefing) {
@@ -572,6 +580,13 @@ class AplicatieVreme {
         randeazaGraficPrognoza(datePrognoza, this.containerGrafic, setari.unitTemp);
       } catch (errGrafic) {
         console.warn('Grafic indisponibil:', errGrafic.message);
+      }
+
+      // 🌍 City Info Tabs
+      const containerCityTabsGeo = document.getElementById('container-city-tabs');
+      if (containerCityTabsGeo) {
+        initCityTabs(containerCityTabsGeo, dateVreme);
+        containerCityTabsGeo.classList.remove('ascuns');
       }
 
       // Briefing Zilnic Inteligent

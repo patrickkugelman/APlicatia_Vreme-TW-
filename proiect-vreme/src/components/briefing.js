@@ -58,11 +58,24 @@ function buildBriefingHTML(items) {
 export function randeazaBriefing(datePrognoza, containerEl, setari = {}) {
   if (!containerEl || !datePrognoza?.list?.length) return;
 
-  const azi = new Date();
-  const intervaleleDeAzi = datePrognoza.list.filter((p) => {
-    const d = new Date(p.dt * 1000);
-    return d.getDate() === azi.getDate();
-  });
+  // Intervale de zi (06:00-22:00 ora locala), incepand de acum
+  const acumSec  = Math.floor(Date.now() / 1000);
+  const tzOffset = datePrognoza.city?.timezone || 0;
+
+  let intervaleleDeAzi = datePrognoza.list.filter((p) => {
+    if (p.dt < acumSec) return false;
+    const oraLocala = new Date((p.dt + tzOffset) * 1000).getUTCHours();
+    return oraLocala >= 6 && oraLocala <= 22;
+  }).slice(0, 8);
+
+  // Daca e dupa 22:00 si nu mai exista intervale de zi azi,
+  // luam ziua de maine (urmatoarele 8 intervale de zi)
+  if (!intervaleleDeAzi.length) {
+    intervaleleDeAzi = datePrognoza.list.filter((p) => {
+      const oraLocala = new Date((p.dt + tzOffset) * 1000).getUTCHours();
+      return oraLocala >= 6 && oraLocala <= 22;
+    }).slice(0, 8);
+  }
 
   if (!intervaleleDeAzi.length) {
     containerEl.innerHTML = '';

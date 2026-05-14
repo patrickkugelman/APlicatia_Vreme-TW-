@@ -92,11 +92,17 @@ function buildTimelineHTML(intervale, activitate, setari) {
 export function randeazaActivitateOptimizator(datePrognoza, containerEl, setari = {}) {
   if (!containerEl || !datePrognoza?.list?.length) return;
 
-  const azi = new Date();
-  const intervaleleDeAzi = datePrognoza.list.filter((p) => {
-    const d = new Date(p.dt * 1000);
-    return d.getDate() === azi.getDate();
-  });
+  // Intervale de zi (06:00-22:00 ora locala a orasului), incepand de acum
+  const acumSec  = Math.floor(Date.now() / 1000);
+  const tzOffset = datePrognoza.city?.timezone || 0; // secunde fata de UTC
+
+  const intervaleleDeAzi = datePrognoza.list
+    .filter((p) => {
+      if (p.dt < acumSec) return false; // sari peste trecut
+      const oraLocala = new Date((p.dt + tzOffset) * 1000).getUTCHours();
+      return oraLocala >= 6 && oraLocala <= 22; // doar ore de zi
+    })
+    .slice(0, 8);
 
   // Selector butoane activitate
   const selectorHTML = `
@@ -110,12 +116,16 @@ export function randeazaActivitateOptimizator(datePrognoza, containerEl, setari 
     </div>
   `;
 
-  containerEl.innerHTML = selectorHTML;
+  // Înlocuiește containerEl cu o clonă curată (elimină toți listenerii vechi)
+  const clone = containerEl.cloneNode(false);
+  containerEl.parentNode.replaceChild(clone, containerEl);
+  const el = clone;
 
-  const timelineWrap = containerEl.querySelector('#activitate-timeline-wrap');
+  el.innerHTML = selectorHTML;
 
-  // Event delegation pe selector
-  containerEl.addEventListener('click', (e) => {
+  const timelineWrap = el.querySelector('#activitate-timeline-wrap');
+
+  el.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn-activitate');
     if (!btn) return;
 
@@ -124,7 +134,7 @@ export function randeazaActivitateOptimizator(datePrognoza, containerEl, setari 
     if (!activitate) return;
 
     const eraActiv = btn.classList.contains('activ');
-    containerEl.querySelectorAll('.btn-activitate').forEach((b) => b.classList.remove('activ'));
+    el.querySelectorAll('.btn-activitate').forEach((b) => b.classList.remove('activ'));
 
     if (eraActiv) {
       timelineWrap.innerHTML = '<p class="activitate-gol">Selectează o activitate pentru a vedea fereastra optimă.</p>';
