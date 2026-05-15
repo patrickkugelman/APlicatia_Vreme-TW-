@@ -97,7 +97,7 @@ async function incarcaStiri(city) {
   const data = await fetchCuAuth(`/api/city-info/news/${encodeURIComponent(city)}`);
 
   if (data.status === 'no-key') {
-    return `<p class="city-tab-info">ℹ️ Configurează <code>GNEWS_API_KEY</code> în <code>.env</code> pentru a vedea știrile. Înregistrare gratuită la <a href="https://gnews.io" target="_blank">gnews.io</a>.</p>`;
+    return `<p class="city-tab-info">ℹ️ Configurează <code>GUARDIAN_API_KEY</code> în <code>.env</code>. Înregistrare gratuită: <a href="https://bonobo.capi.gutools.co.uk/register/developer" target="_blank">The Guardian API</a>.</p>`;
   }
 
   const articles = (data.articles || []).filter(a => a.title && a.title !== '[Removed]');
@@ -111,7 +111,7 @@ async function incarcaStiri(city) {
         ? `<img class="stire-img" src="${a.urlToImage}" alt="" loading="lazy" onerror="this.style.display='none'" />`
         : `<div class="stire-img-placeholder">📰</div>`}
       <div class="stire-body">
-        <p class="stire-sursa">${a.source?.name || 'Sursă necunoscută'} · ${new Date(a.publishedAt).toLocaleDateString('ro-RO')}</p>
+        <p class="stire-sursa">${a.source?.name || 'Sursă necunoscută'}${a.section ? ` · ${a.section}` : ''} · ${new Date(a.publishedAt).toLocaleDateString('ro-RO')}</p>
         <h3 class="stire-titlu">${a.title}</h3>
         ${a.description ? `<p class="stire-desc">${a.description.slice(0, 120)}${a.description.length > 120 ? '...' : ''}</p>` : ''}
         <a class="stire-link" href="${a.url}" target="_blank" rel="noopener noreferrer">Citește articolul →</a>

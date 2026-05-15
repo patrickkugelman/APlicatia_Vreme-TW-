@@ -3,27 +3,33 @@ import { verificaAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 
-// ─── GNews — știri în timp real ───────────────────────────────────────────────
+// ─── The Guardian — știri de calitate (5000 req/zi gratuit) ──────────────────
 router.get('/news/:city', verificaAuth, async (req, res) => {
-  const KEY = process.env.GNEWS_API_KEY;
+  const KEY = process.env.GUARDIAN_API_KEY;
   if (!KEY) return res.json({ status: 'no-key', articles: [] });
 
   try {
-    const q = encodeURIComponent(req.params.city);
+    const city = req.params.city;
+    const q = encodeURIComponent(city);
     const r = await fetch(
-      `https://gnews.io/api/v4/search?q=${q}&lang=en&max=6&sortby=publishedAt&apikey=${KEY}`
+      `https://content.guardianapis.com/search?q=${q}&api-key=${KEY}&query-fields=headline&show-fields=thumbnail,trailText,byline&page-size=9&order-by=newest`
     );
     const data = await r.json();
-    // Normalizează răspunsul GNews la același format ca NewsAPI
+
+    if (data.response?.status !== 'ok') {
+      return res.json({ status: 'error', articles: [] });
+    }
+
     res.json({
       status: 'ok',
-      articles: (data.articles || []).map(a => ({
-        title:       a.title,
-        description: a.description,
-        url:         a.url,
-        urlToImage:  a.image,
-        publishedAt: a.publishedAt,
-        source:      { name: a.source?.name || 'GNews' }
+      articles: (data.response.results || []).map(a => ({
+        title:       a.webTitle,
+        description: a.fields?.trailText || '',
+        url:         a.webUrl,
+        urlToImage:  a.fields?.thumbnail || null,
+        publishedAt: a.webPublicationDate,
+        source:      { name: 'The Guardian' },
+        section:     a.sectionName || ''
       }))
     });
   } catch (e) {
